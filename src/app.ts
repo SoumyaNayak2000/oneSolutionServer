@@ -1,8 +1,25 @@
 import express from "express";
+import dotenv from "dotenv";
 
-const port = 3000;
+dotenv.config({
+  path: "./.env",
+});
+
 const app = express();
 
-app.listen(port, () => {
-  console.log(`express is working on port ${port}`);
+app.use(express.json({ limit: "20kb" }));
+app.use(express.urlencoded({ extended: true, limit: "20kb" }));
+app.use(express.static("public"));
+
+// importing routes
+import userRouter from "./routes/user.js";
+
+// default route
+app.get("/", (req, res) => {
+  res.send("API Working with /api/v1");
 });
+
+//using routes
+app.use("/api/v1/user", userRouter);
+
+export { app };
