@@ -13,6 +13,7 @@ app.use(express.static("public"));
 
 // importing routes
 import userRouter from "./routes/user.js";
+import { errorMiddleware } from "./middlewares/errorHandler.js";
 
 // default route
 app.get("/", (req, res) => {
@@ -21,5 +22,7 @@ app.get("/", (req, res) => {
 
 //using routes
 app.use("/api/v1/user", userRouter);
+
+app.use(errorMiddleware);
 
 export { app };

@@ -1,9 +1,21 @@
 import express from "express";
-import { newUser } from "../controllers/user.js";
+import {
+  deleteUser,
+  getAllUsers,
+  getUser,
+  newUser,
+} from "../controllers/user.js";
+import { isAdmin } from "../middlewares/auth.js";
 
-const userRouter = express();
+const app = express();
 
 // route- /api/v1/user/new
-userRouter.post("/new", newUser);
+app.post("/new", newUser);
 
-export default userRouter;
+// Route - /api/v1/user/all
+app.get("/all", isAdmin, getAllUsers);
+
+// Route - /api/v1/user/dynamicId
+app.route("/:id").get(getUser).delete(isAdmin, deleteUser);
+
+export default app;
