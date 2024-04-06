@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
 
-export const connectDB = () => {
+export const connectDB = (uri: string) => {
   mongoose
-    .connect(
-      "mongodb+srv://soumyanayakraju:soumyanayakraju@ecom.jnw0hic.mongodb.net/",
-      {
-        dbName: "oneSolution",
-      }
-    )
+    .connect(uri, {
+      dbName: "oneSolution",
+    })
     .then((c) => console.log(`DB Connected to ${c.connection.host}`))
     .catch((e) => console.log(e));
 };

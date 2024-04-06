@@ -9,6 +9,7 @@ export const isAdmin = TryCatch(async (req, res, next) => {
   if (!id) return next(new ErrorHandler("Unauthorized User", 401));
 
   const user = await User.findById(id);
+
   if (!user)
     return next(new ErrorHandler("The ID you entered is not exist", 401));
   if (user.role !== "admin")

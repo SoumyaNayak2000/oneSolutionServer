@@ -21,6 +21,13 @@ Here's an explanation of the properties defined in the `NewUserRequestBody` inte
 
 By defining the `NewUserRequestBody` interface, the application can enforce a specific structure for the request body when creating a new user. This helps in ensuring that the necessary data is provided in the correct format, making the API more predictable and easier to work with for developers consuming the API.*/
 
+export interface NewProductRequestBody {
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+}
+
 export type ControllerType = (
   req: Request,
   res: Response,
@@ -41,3 +48,29 @@ Here's an explanation of the `ControllerType` type alias:
    - `Response<any, Record<string, any>>`: Represents an Express `Response` object with a generic type that can have any body type (`any`) and headers of type `Record<string, any>`.
 
  By defining the `ControllerType` type alias, it provides a clear and standardized way to define controller functions in Express applications, ensuring consistency in the parameters accepted and the return type expected from these functions.*/
+
+export type SearchRequestQuery = {
+  search?: string;
+  price?: string;
+  category?: string;
+  sort?: string;
+  page?: string;
+};
+
+export interface BaseQuery {
+  name?: {
+    $regex: string;
+    $options: string;
+  };
+  price?: { $lte: number };
+  category?: string;
+}
+
+export type InvalidateCacheProps = {
+  product?: boolean;
+  order?: boolean;
+  admin?: boolean;
+  userId?: string;
+  orderId?: string;
+  productId?: string | string[];
+};
